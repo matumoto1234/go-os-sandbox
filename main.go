@@ -8,8 +8,8 @@ import (
 	"os/exec"
 )
 
-func git(arg string) error {
-	err := exec.Command("git", arg).Run()
+func git(arg ...string) error {
+	err := exec.Command("git", arg...).Run()
 	if err != nil {
 		return errors.New(fmt.Sprintf("git: run the command [git %v]\n", arg))
 	}
@@ -27,7 +27,7 @@ func main() {
 
 	ioutil.WriteFile("hoge/fuga/piyo/b.txt", []byte(content), 0755)
 
-	err = exec.Command("git", "add", ".").Run()
+	err = git("add", ".")
 	if err != nil {
 		fmt.Println(err)
 	}
